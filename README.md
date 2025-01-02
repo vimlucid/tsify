@@ -75,7 +75,7 @@ Tsify container attributes
 
 -   `into_wasm_abi` implements `IntoWasmAbi` and `OptionIntoWasmAbi`. This can be converted directly from Rust to JS via `serde_json` or `serde-wasm-bindgen`.
 -   `from_wasm_abi` implements `FromWasmAbi` and `OptionFromWasmAbi`. This is the opposite operation of the above.
--   `namespace` generates a namespace for the enum variants.
+-   `namespaced_variants` generates a namespace for enum variants.
 
 Tsify field attributes
 
@@ -169,11 +169,11 @@ export type Color =
     | { Hsv: { hue: number; saturation: number; value: number } };
 ```
 
-## Enum with namespace
+## Enum with namespaced variants
 
 ```rust
 #[derive(Tsify)]
-#[tsify(namespace)]
+#[tsify(namespaced_variants)]
 enum Color {
     Red,
     Blue,

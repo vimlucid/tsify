@@ -97,7 +97,7 @@ pub struct TsEnumDecl {
     pub id: String,
     pub type_params: Vec<String>,
     pub members: Vec<TsTypeAliasDecl>,
-    pub namespace: bool,
+    pub namespaced_variants: bool,
     pub comments: Vec<String>,
 }
 
@@ -190,7 +190,7 @@ impl TsEnumDecl {
 
 impl Display for TsEnumDecl {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        if self.namespace {
+        if self.namespaced_variants {
             let mut type_refs = self
                 .members
                 .iter()

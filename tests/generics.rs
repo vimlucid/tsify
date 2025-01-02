@@ -94,10 +94,10 @@ fn test_generic_enum() {
 }
 
 #[test]
-fn test_generic_enum_with_namespace() {
+fn test_generic_enum_with_namespaced_variants() {
     /// Comment for GenericEnum
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     pub enum GenericEnum<T, U> {
         /// Comment for Unit
         Unit,

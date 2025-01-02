@@ -53,7 +53,7 @@ fn test_skip() {
 
     /// Comment for Enum
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Enum {
         /// Comment for A
         #[serde(skip)]
@@ -113,7 +113,7 @@ fn test_skip() {
     /// Comment for InternalTagEnum
     #[derive(Tsify)]
     #[serde(tag = "type")]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum InternalTagEnum {
         /// Comment for Unit
         Unit,

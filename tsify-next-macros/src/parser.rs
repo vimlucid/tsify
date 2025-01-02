@@ -280,7 +280,7 @@ impl<'a> Parser<'a> {
             id: self.container.ident_str(),
             type_params: relevant_type_params,
             members,
-            namespace: self.container.attrs.namespace,
+            namespaced_variants: self.container.attrs.namespaced_variants,
             comments: extract_doc_comments(&self.container.serde_container.original.attrs),
         })
     }

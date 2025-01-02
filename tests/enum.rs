@@ -51,10 +51,10 @@ fn test_empty_enum() {
 }
 
 #[test]
-fn test_externally_tagged_enum_with_namespace() {
+fn test_externally_tagged_namespaced_variants() {
     /// Comment for External
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum External {
         /// Comment for Struct
         Struct { x: String, y: i32 },
@@ -138,11 +138,11 @@ fn test_internally_tagged_enum() {
 }
 
 #[test]
-fn test_internally_tagged_enum_with_namespace() {
+fn test_internally_tagged_enum_with_namespaced_variants() {
     /// Comment for Internal
     #[derive(Tsify)]
     #[serde(tag = "t")]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Internal {
         /// Comment for Struct
         Struct { x: String, y: i32 },
@@ -218,11 +218,11 @@ fn test_adjacently_tagged_enum() {
 }
 
 #[test]
-fn test_adjacently_tagged_enum_with_namespace() {
+fn test_adjacently_tagged_enum_with_namespaced_variants() {
     /// Comment for Adjacent
     #[derive(Tsify)]
     #[serde(tag = "t", content = "c")]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Adjacent {
         /// Comment for Struct
         Struct { x: String, y: i32 },
@@ -319,11 +319,11 @@ fn test_untagged_enum() {
 }
 
 #[test]
-fn test_untagged_enum_with_namespace() {
+fn test_untagged_enum_with_namespaced_variants() {
     /// Comment for Untagged
     #[derive(Tsify)]
     #[serde(untagged)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Untagged {
         /// Comment for Struct
         Struct { x: String, y: i32 },
@@ -440,7 +440,7 @@ fn test_renamed_enum() {
 fn test_module_reimport_enum() {
     /// Comment for Internal
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Internal {
         /// Comment for Struct
         Struct { x: String, y: i32 },
@@ -513,7 +513,7 @@ fn test_module_template_enum() {
 
     /// Comment for Internal
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Internal<T> {
         /// Comment for Newtype
         Newtype(Test<T>),
@@ -572,7 +572,7 @@ fn test_module_template_enum_inner() {
 
     /// Comment for Internal
     #[derive(Tsify)]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Internal {
         /// Comment for Newtype
         Newtype(Test<Foo>),

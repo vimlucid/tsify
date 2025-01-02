@@ -70,7 +70,7 @@ fn test_rename_all() {
     #[allow(clippy::enum_variant_names)]
     #[derive(Tsify)]
     #[serde(rename_all = "snake_case")]
-    #[tsify(namespace)]
+    #[tsify(namespaced_variants)]
     enum Enum {
         /// Comment for snake_case
         SnakeCase { foo: bool, foo_bar: bool },

@@ -8,8 +8,8 @@ pub struct TsifyContainerAttrs {
     pub into_wasm_abi: bool,
     /// Implement `FromWasmAbi` for the type.
     pub from_wasm_abi: bool,
-    /// Whether the type should be wrapped in a Typescript namespace.
-    pub namespace: bool,
+    /// Whether the enum variants should be represented as constants in a TypeScript namespace.
+    pub namespaced_variants: bool,
     /// Information about how the type should be serialized.
     pub ty_config: TypeGenerationConfig,
 }
@@ -43,7 +43,7 @@ impl TsifyContainerAttrs {
         let mut attrs = Self {
             into_wasm_abi: false,
             from_wasm_abi: false,
-            namespace: false,
+            namespaced_variants: false,
             ty_config: TypeGenerationConfig::default(),
         };
 
@@ -69,14 +69,14 @@ impl TsifyContainerAttrs {
                     return Ok(());
                 }
 
-                if meta.path.is_ident("namespace") {
+                if meta.path.is_ident("namespaced_variants") {
                     if !matches!(input.data, syn::Data::Enum(_)) {
-                        return Err(meta.error("#[tsify(namespace)] can only be used on enums"));
+                        return Err(meta.error("#[tsify(namespaced_variants)] can only be used on enums"));
                     }
-                    if attrs.namespace {
+                    if attrs.namespaced_variants {
                         return Err(meta.error("duplicate attribute"));
                     }
-                    attrs.namespace = true;
+                    attrs.namespaced_variants = true;
                     return Ok(());
                 }
 
@@ -137,7 +137,7 @@ impl TsifyContainerAttrs {
                     return Ok(());
                 }
 
-                Err(meta.error("unsupported tsify attribute, expected one of `into_wasm_abi`, `from_wasm_abi`, `namespace`, `type_prefix`, `type_suffix`, `missing_as_null`, `hashmap_as_object`, `large_number_types_as_bigints`"))
+                Err(meta.error("unsupported tsify attribute, expected one of `into_wasm_abi`, `from_wasm_abi`, `namespaced_variants`, `type_prefix`, `type_suffix`, `missing_as_null`, `hashmap_as_object`, `large_number_types_as_bigints`"))
             })?;
         }
 
