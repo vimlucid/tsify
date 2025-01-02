@@ -17,6 +17,7 @@ pub struct TsTypeAliasDecl {
 }
 
 impl TsTypeAliasDecl {
+    // TODO Dedupe
     pub fn to_string_with_indent(&self, indent: usize) -> String {
         let out = self.to_string();
         let indent_str = " ".repeat(indent);

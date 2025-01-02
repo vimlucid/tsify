@@ -8,6 +8,7 @@ mod parser;
 mod type_alias;
 mod typescript;
 mod wasm_bindgen;
+mod namespace;
 
 use syn::{parse_macro_input, DeriveInput};
 
@@ -45,6 +46,7 @@ pub fn declare(
 pub fn derive_tsify(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let item: DeriveInput = parse_macro_input!(input);
 
+    println!("Expanding...");
     derive::expand(item)
         .unwrap_or_else(syn::Error::into_compile_error)
         .into()

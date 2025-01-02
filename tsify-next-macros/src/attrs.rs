@@ -10,6 +10,8 @@ pub struct TsifyContainerAttrs {
     pub from_wasm_abi: bool,
     /// Whether the enum variants should be represented as constants in a TypeScript namespace.
     pub namespaced_variants: bool,
+    /// Whether the item should be wrapped with a TypeScript namespace
+    pub namespace: Option<String>,
     /// Information about how the type should be serialized.
     pub ty_config: TypeGenerationConfig,
 }
@@ -44,6 +46,7 @@ impl TsifyContainerAttrs {
             into_wasm_abi: false,
             from_wasm_abi: false,
             namespaced_variants: false,
+            namespace: None,
             ty_config: TypeGenerationConfig::default(),
         };
 
@@ -77,6 +80,17 @@ impl TsifyContainerAttrs {
                         return Err(meta.error("duplicate attribute"));
                     }
                     attrs.namespaced_variants = true;
+                    return Ok(());
+                }
+
+                if meta.path.is_ident("namespace") {
+                    // TODO Works for unions?
+
+                    if attrs.namespace.is_some() {
+                        return Err(meta.error("duplicate attribute"));
+                    }
+                    let lit: syn::LitStr = meta.value()?.parse()?;
+                    attrs.namespace = Some(lit.value());
                     return Ok(());
                 }
 

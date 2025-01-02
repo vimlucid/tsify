@@ -2,13 +2,18 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::parse_quote;
 
-use crate::{container::Container, decl::Decl};
+use crate::{container::Container, decl::Decl, namespace};
+use crate::namespace::Namespace;
 
 pub fn expand(cont: &Container, decl: Decl) -> TokenStream {
     let attrs = &cont.attrs;
     let ident = cont.ident();
 
-    let decl_str = decl.to_string();
+    let decl_str = match &cont.attrs.namespace {
+        Some(ns) => namespace::wrap(&decl.to_string(), Namespace(ns)),
+        None => decl.to_string()
+    };
+
     let (impl_generics, ty_generics, where_clause) = cont.generics().split_for_impl();
 
     let typescript_custom_section = quote! {

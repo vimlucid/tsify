@@ -2,7 +2,8 @@ use proc_macro2::TokenStream;
 use quote::quote;
 use syn::{parse_quote, DeriveInput};
 
-use crate::{container::Container, parser::Parser, wasm_bindgen};
+use crate::{container::Container, namespace, parser::Parser, wasm_bindgen};
+use crate::namespace::Namespace;
 
 pub fn expand(input: DeriveInput) -> syn::Result<TokenStream> {
     let cont = Container::from_derive_input(&input)?;
@@ -13,9 +14,13 @@ pub fn expand(input: DeriveInput) -> syn::Result<TokenStream> {
     let (impl_generics, ty_generics, where_clause) = cont.generics().split_for_impl();
 
     let ident = cont.ident();
-    let decl_str = decl.to_string();
+    let decl_str = match &cont.attrs.namespace {
+        Some(ns) => namespace::wrap(&decl.to_string(), Namespace(ns)),
+        None => decl.to_string()
+    };
 
     let tokens = if cfg!(feature = "wasm-bindgen") {
+        // TODO Test
         wasm_bindgen::expand(&cont, decl)
     } else {
         quote! {
