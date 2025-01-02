@@ -2,3 +2,4 @@
 Cargo.lock
 .vscode
 tests-e2e/*/pkg
+.idea
