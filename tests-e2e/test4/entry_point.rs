@@ -10,7 +10,7 @@ pub struct Point {
 }
 
 #[wasm_bindgen]
-pub fn consume(point: Point) {}
+pub fn consume(_point: Point) {}
 
 #[wasm_bindgen]
 pub fn into_js() -> Point {
@@ -18,7 +18,7 @@ pub fn into_js() -> Point {
 }
 
 #[wasm_bindgen]
-pub fn consume_vector(points: Vec<Point>) {}
+pub fn consume_vector(_points: Vec<Point>) {}
 
 #[wasm_bindgen]
 pub fn vector_into_js() -> Vec<Point> {
